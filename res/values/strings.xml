@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">GT_CoC_StudentEvents</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="placeholder_splashscreen">Placeholder SplashScreen</string>
 
 </resources>
