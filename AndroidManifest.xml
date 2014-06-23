@@ -30,10 +30,14 @@
         <activity
             android:name="com.example.gt_coc_studentevents.EventListing"
             android:label="@string/event_listing" >
-        </activity> 
+        </activity>
         <activity
-          	android:name="com.example.gt_coc_studentevents.DatabaseConnector"
-          	android:label="@string/database_connector" >  
+            android:name="com.example.gt_coc_studentevents.DatabaseConnector"
+            android:label="@string/database_connector" >
+        </activity>
+        <activity
+            android:name="com.example.gt_coc_studentevents.EventListActivity"
+            android:label="@string/title_activity_event_list" >
         </activity>
     </application>
 

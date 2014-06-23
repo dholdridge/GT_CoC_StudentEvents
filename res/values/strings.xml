@@ -6,5 +6,8 @@
     <string name="placeholder_splashscreen">Placeholder SplashScreen</string>
     <string name="event_listing">Event Listing</string>
     <string name="database_connector">Database Connector</string>
+    <string name="title_activity_event_list">EventListActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="main_no_items">No events to display</string>
 
 </resources>

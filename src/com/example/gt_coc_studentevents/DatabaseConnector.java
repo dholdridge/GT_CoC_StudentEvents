@@ -9,6 +9,7 @@
 package com.example.gt_coc_studentevents;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class DatabaseConnector {
@@ -47,20 +48,20 @@ public class DatabaseConnector {
 		
 	}
 	
-	public static EventListing[] getEventList() throws SQLException {
+	public static ArrayList<EventListing> getEventList() throws SQLException {
 		
 		Connection conn = connect();
 		ResultSet rs = query(conn);
-				EventListing[] eventList = new EventListing[2];
+				ArrayList<EventListing> eventList = new ArrayList<EventListing>();
 		int i = 0;
 		
 		while ( rs.next() ) {
-			eventList[i++] = new EventListing(
+			eventList.add( new EventListing(
 						rs.getString("eventName"),
 						rs.getString("location"),
 						rs.getTimestamp("time"),
 						rs.getString("description")
-						);
+						));
 		}
 		
 		return eventList;
@@ -72,7 +73,7 @@ public class DatabaseConnector {
 	 */
 	public static void main(String[] args){
 		
-		EventListing[] eventList = null;
+		ArrayList<EventListing> eventList = null;
 		
 		try {
 			 eventList = getEventList();
@@ -82,11 +83,11 @@ public class DatabaseConnector {
 			e.printStackTrace();
 		}
 		if (eventList == null){ System.out.println("You have fucked up now."); return;}
-		for (int i=0; i < eventList.length; i++){
-			System.out.println(eventList[i].getEventName() );
-			System.out.println(eventList[i].getLocation() );
-			System.out.println(eventList[i].getTime().toString() );
-			System.out.println(eventList[i].getDescription() );
+		for (int i=0; i < eventList.size(); i++){
+			System.out.println(eventList.get(i).getEventName() );
+			System.out.println(eventList.get(i).getLocation() );
+			System.out.println(eventList.get(i).getTime().toString() );
+			System.out.println(eventList.get(i).getDescription() );
 			
 		}
 	}
