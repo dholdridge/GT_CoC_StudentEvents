@@ -27,6 +27,14 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+        <activity
+            android:name="com.example.gt_coc_studentevents.EventListing"
+            android:label="@string/event_listing" >
+        </activity> 
+        <activity
+          	android:name="com.example.gt_coc_studentevents.DatabaseConnector"
+          	android:label="@string/database_connector" >  
+        </activity>
     </application>
 
 </manifest>
