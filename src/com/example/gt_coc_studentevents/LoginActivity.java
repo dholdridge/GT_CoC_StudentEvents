@@ -150,7 +150,7 @@ public class LoginActivity extends Activity {
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
 			
-			Intent intent = new Intent(this, EventListing.class);
+			Intent intent = new Intent(this, EventListActivity.class);
 			startActivity(intent);
 		}
 	}

@@ -53,7 +53,7 @@ public class DatabaseConnector {
 		Connection conn = connect();
 		ResultSet rs = query(conn);
 				ArrayList<EventListing> eventList = new ArrayList<EventListing>();
-		int i = 0;
+		
 		
 		while ( rs.next() ) {
 			eventList.add( new EventListing(

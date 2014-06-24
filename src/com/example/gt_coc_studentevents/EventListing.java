@@ -7,9 +7,7 @@ package com.example.gt_coc_studentevents;
 
 import java.util.Date;
 
-import android.app.Activity;
-
-public class EventListing extends Activity{
+public class EventListing {
 	
 	private String eventName;
 	private String location;

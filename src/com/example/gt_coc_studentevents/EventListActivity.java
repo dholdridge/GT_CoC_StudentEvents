@@ -1,27 +1,59 @@
+/*
+ * I'm following an example from here:
+ * http://www.softwarepassion.com/android-series-custom-listview-items-and-adapters/
+ */
 package com.example.gt_coc_studentevents;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import android.support.v4.app.Fragment;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-public class EventListActivity extends ActionBarActivity {
+public class EventListActivity extends ListActivity {
+	
+	private ProgressDialog pg = null;
+	private ArrayList<EventListing> events;
+	private EventAdapter adapter;
+	private Runnable viewEvents;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_list);
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+//		if (savedInstanceState == null) {
+//			getFragmentManager().beginTransaction()
+//					.add(R.id.container, new PlaceholderFragment()).commit();
+//		}
+		
+		events = new ArrayList<EventListing>();
+		adapter = new EventAdapter(this, R.layout.row, events);
+		setListAdapter(this.adapter);
+		
+		viewEvents = new Runnable() {
+			@Override
+			public void run() {
+				getEvents();
+			}
+			
+		};
+		
+		Thread thread = new Thread(null, viewEvents, "MagnetoBackground");
+		thread.start();
+		pg = ProgressDialog.show(this, "Please wait...", "Retrieving data...", true);
+				
 	}
 
 	@Override
@@ -59,6 +91,75 @@ public class EventListActivity extends ActionBarActivity {
 					container, false);
 			return rootView;
 		}
+	}
+	
+	/*
+	 * 
+	 */
+	private void getEvents(){
+		try {
+			events = DatabaseConnector.getEventList();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.e("BACKGROUND_PROC", e.getMessage());
+		}
+		runOnUiThread(returnRes);
+		
+	}
+	
+	/*
+	 * 
+	 */
+	private Runnable returnRes = new Runnable() {
+		@Override
+		public void run() {
+			if (events != null && events.size() > 0){
+				adapter.notifyDataSetChanged();
+				for (int i=0;i<events.size();i++){
+					adapter.add(events.get(i));
+				}
+				
+			}
+			pg.dismiss();
+			adapter.notifyDataSetChanged();
+		}
+	};
+	
+	/*
+	 * Generates a view for a single event
+	 */
+	private class EventAdapter extends ArrayAdapter<EventListing> {
+		
+		private ArrayList<EventListing> events;
+
+		public EventAdapter(Context context, int textViewResourceId,
+				ArrayList<EventListing> events) {
+			super(context, textViewResourceId, events);
+			this.events = events;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View v = convertView;
+			if (v == null) {
+				LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				v = vi.inflate(R.layout.row, null);
+			}
+			EventListing evt = events.get(position);
+			if (evt != null){
+				TextView tt = (TextView) v.findViewById(R.id.toptext);
+				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+				if (tt != null)
+					tt.setText(evt.getEventName());
+				if (bt != null)
+					tt.setText(evt.getTime().toString());
+					
+			}
+			return v;
+		}
+		
+		
 	}
 
 }
