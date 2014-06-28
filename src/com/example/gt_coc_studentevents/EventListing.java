@@ -11,14 +11,14 @@ public class EventListing {
 	
 	private String eventName;
 	private String location;
-	private Date time;
+	private String time;
 	private String description;
 	
 	public EventListing(){
 		super();
 	}
 	
-	public EventListing(String eventName, String location, Date time,
+	public EventListing(String eventName, String location, String time,
 			String description) {
 		super();
 		this.eventName = eventName;
@@ -43,11 +43,13 @@ public class EventListing {
 		this.location = location;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	
+	
+	public void setTime(String time) {
 		this.time = time;
 	}
 

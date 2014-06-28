@@ -17,7 +17,8 @@ public class DatabaseConnector {
 	private static String userName = "coc_events_user";
 	private static String password = "justdoit";
 	private static String dbms = "mysql";
-	private static String serverName = "gruesomevisage.net";
+	//private static String serverName = "gruesomevisage.net";
+	private static String serverName = "128.61.104.35";
 	private static int portNumber = 3306;
 	private static String listQuery = "SELECT * from cocevents.events";
 	
@@ -25,6 +26,14 @@ public class DatabaseConnector {
 	
 	
 	private static Connection connect() throws SQLException {
+		
+		//Maybe this will help
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Connection conn = null;
 		Properties connectionProps = new Properties();
@@ -36,7 +45,12 @@ public class DatabaseConnector {
 				":" + portNumber + "/",
 				 connectionProps);
 			
-	    System.out.println("Connected to database");
+	    if (conn != null) {
+	    	System.out.println("Connected to database");
+	    }
+	    else {
+	    	System.out.println("Connection failed");
+	    }
 	    return conn;
 	}
 	
@@ -59,7 +73,7 @@ public class DatabaseConnector {
 			eventList.add( new EventListing(
 						rs.getString("eventName"),
 						rs.getString("location"),
-						rs.getTimestamp("time"),
+						rs.getTimestamp("time").toString(),
 						rs.getString("description")
 						));
 		}

@@ -98,8 +98,8 @@ public class EventListActivity extends ListActivity {
 	 */
 	private void getEvents(){
 		try {
-			events = DatabaseConnector.getEventList();
-		} catch (SQLException e) {
+			events = JsonParser.getList();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.e("BACKGROUND_PROC", e.getMessage());
@@ -131,12 +131,12 @@ public class EventListActivity extends ListActivity {
 	 */
 	private class EventAdapter extends ArrayAdapter<EventListing> {
 		
-		private ArrayList<EventListing> events;
+		private ArrayList<EventListing> eventList;
 
 		public EventAdapter(Context context, int textViewResourceId,
-				ArrayList<EventListing> events) {
-			super(context, textViewResourceId, events);
-			this.events = events;
+				ArrayList<EventListing> eventList) {
+			super(context, textViewResourceId, eventList);
+			this.eventList = eventList;
 		}
 		
 		@Override
@@ -146,14 +146,14 @@ public class EventListActivity extends ListActivity {
 				LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.row, null);
 			}
-			EventListing evt = events.get(position);
+			EventListing evt = eventList.get(position);
 			if (evt != null){
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
 				if (tt != null)
 					tt.setText(evt.getEventName());
 				if (bt != null)
-					tt.setText(evt.getTime().toString());
+					bt.setText(evt.getTime());
 					
 			}
 			return v;
