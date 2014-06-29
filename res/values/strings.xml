@@ -10,5 +10,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="main_no_items">No events to display</string>
     <string name="title_activity_list_details">ListDetailsActivity</string>
+    <string name="event_name_colon_underline"><u>Event Name:</u></string>
+    <string name="event_time_colon_underline"><u>Time:</u></string>
+    <string name="event_location_colon_underline"><u>Location:</u></string>
+    <string name="event_details_colon_underline"><u>Details:</u></string>
+    
 
 </resources>

@@ -4,25 +4,62 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.os.Build;
 
 public class ListDetailsActivity extends ActionBarActivity {
+	
+	private TextView nameText, timeText, locationText, detailsText;
+	private EventListing event;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_details);
 
-		if (savedInstanceState == null) {
+		/*if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		}*/
 	}
+	
+	@Override
+	 	public void onStart() {
+	 		super.onStart();
+	 		
+	 		nameText = (TextView) findViewById(R.id.event_name);
+	 		timeText = (TextView) findViewById(R.id.event_time);
+	 		locationText = (TextView) findViewById(R.id.event_location);
+	 		detailsText = (TextView) findViewById(R.id.event_details);
+	 		
+	 		event = new EventListing();
+	 		
+	 		Bundle extras = getIntent().getExtras();
+	 		if (extras != null) {
+	 			String name = extras.getString("NAME");
+	 			String time = extras.getString("TIME");
+	 			String location = extras.getString("LOCATION");
+	 			String details = extras.getString("DETAILS");
+	 			
+	 			try {
+	 				event = new EventListing(name, location, time, details);
+	 			}
+	 			catch (NullPointerException e) {
+	 				Log.d("Event Details", "Event detail extras are null");
+	 			}
+	 		}
+	 		
+	 		nameText.setText(event.getEventName());
+	 		timeText.setText(event.getTime());
+	 		locationText.setText(event.getLocation());
+	 		detailsText.setText(event.getDescription());
+	 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

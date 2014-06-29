@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:onClick="showDetails"
+    >
     
 <!--     <ImageView  -->
 <!--         android:id="@+id/icon" -->

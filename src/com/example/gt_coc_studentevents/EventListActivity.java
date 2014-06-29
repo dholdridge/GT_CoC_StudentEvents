@@ -4,13 +4,13 @@
  */
 package com.example.gt_coc_studentevents;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,6 +127,25 @@ public class EventListActivity extends ListActivity {
 	};
 	
 	/*
+	 * Method run when a row view is clicked
+	 */
+	public void showDetails (View view) {
+		
+		Intent intent = new Intent(this, ListDetailsActivity.class);
+		
+		Log.e("GET_ROW_ID", Integer.toString(view.getId()));
+		
+		EventListing e = events.get( view.getId() );
+		
+		intent.putExtra("NAME", e.getEventName() );
+		intent.putExtra("TIME", e.getTime());
+		intent.putExtra("LOCATION", e.getLocation());
+		intent.putExtra("DESCRIPTIoN", e.getDescription());
+		
+		startActivity(intent);
+	}
+	
+	/*
 	 * Generates a view for a single event
 	 */
 	private class EventAdapter extends ArrayAdapter<EventListing> {
@@ -147,6 +166,8 @@ public class EventListActivity extends ListActivity {
 				v = vi.inflate(R.layout.row, null);
 			}
 			EventListing evt = eventList.get(position);
+			v.setId(position);
+			Log.e("SET_ROW_ID", Integer.toString(v.getId()));
 			if (evt != null){
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
@@ -154,12 +175,9 @@ public class EventListActivity extends ListActivity {
 					tt.setText(evt.getEventName());
 				if (bt != null)
 					bt.setText(evt.getTime());
-					
 			}
 			return v;
 		}
-		
-		
-	}
+	}//end private class
 
 }
