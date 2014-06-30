@@ -1,7 +1,6 @@
 package com.example.gt_coc_studentevents;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.os.Build;
 
 public class ListDetailsActivity extends ActionBarActivity {
 	
@@ -45,7 +43,7 @@ public class ListDetailsActivity extends ActionBarActivity {
 	 			String name = extras.getString("NAME");
 	 			String time = extras.getString("TIME");
 	 			String location = extras.getString("LOCATION");
-	 			String details = extras.getString("DETAILS");
+	 			String details = extras.getString("DESCRIPTION");
 	 			
 	 			try {
 	 				event = new EventListing(name, location, time, details);

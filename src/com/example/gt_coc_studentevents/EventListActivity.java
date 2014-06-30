@@ -140,7 +140,7 @@ public class EventListActivity extends ListActivity {
 		intent.putExtra("NAME", e.getEventName() );
 		intent.putExtra("TIME", e.getTime());
 		intent.putExtra("LOCATION", e.getLocation());
-		intent.putExtra("DESCRIPTIoN", e.getDescription());
+		intent.putExtra("DESCRIPTION", e.getDescription());
 		
 		startActivity(intent);
 	}
