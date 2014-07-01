@@ -14,6 +14,7 @@
     <string name="event_time_colon_underline"><u>Time:</u></string>
     <string name="event_location_colon_underline"><u>Location:</u></string>
     <string name="event_details_colon_underline"><u>Details:</u></string>
+    <string name="logo_alt">GT College of Computing</string>
     
 
 </resources>
