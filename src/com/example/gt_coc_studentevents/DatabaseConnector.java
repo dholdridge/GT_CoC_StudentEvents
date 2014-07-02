@@ -9,6 +9,7 @@
 package com.example.gt_coc_studentevents;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class DatabaseConnector {
@@ -16,7 +17,8 @@ public class DatabaseConnector {
 	private static String userName = "coc_events_user";
 	private static String password = "justdoit";
 	private static String dbms = "mysql";
-	private static String serverName = "gruesomevisage.net";
+	//private static String serverName = "gruesomevisage.net";
+	private static String serverName = "128.61.104.35";
 	private static int portNumber = 3306;
 	private static String listQuery = "SELECT * from cocevents.events";
 	
@@ -24,6 +26,14 @@ public class DatabaseConnector {
 	
 	
 	private static Connection connect() throws SQLException {
+		
+		//Maybe this will help
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Connection conn = null;
 		Properties connectionProps = new Properties();
@@ -35,7 +45,12 @@ public class DatabaseConnector {
 				":" + portNumber + "/",
 				 connectionProps);
 			
-	    System.out.println("Connected to database");
+	    if (conn != null) {
+	    	System.out.println("Connected to database");
+	    }
+	    else {
+	    	System.out.println("Connection failed");
+	    }
 	    return conn;
 	}
 	
@@ -47,20 +62,20 @@ public class DatabaseConnector {
 		
 	}
 	
-	public static EventListing[] getEventList() throws SQLException {
+	public static ArrayList<EventListing> getEventList() throws SQLException {
 		
 		Connection conn = connect();
 		ResultSet rs = query(conn);
-				EventListing[] eventList = new EventListing[2];
-		int i = 0;
+				ArrayList<EventListing> eventList = new ArrayList<EventListing>();
+		
 		
 		while ( rs.next() ) {
-			eventList[i++] = new EventListing(
+			eventList.add( new EventListing(
 						rs.getString("eventName"),
 						rs.getString("location"),
-						rs.getTimestamp("time"),
+						rs.getTimestamp("time").toString(),
 						rs.getString("description")
-						);
+						));
 		}
 		
 		return eventList;
@@ -72,7 +87,7 @@ public class DatabaseConnector {
 	 */
 	public static void main(String[] args){
 		
-		EventListing[] eventList = null;
+		ArrayList<EventListing> eventList = null;
 		
 		try {
 			 eventList = getEventList();
@@ -82,11 +97,11 @@ public class DatabaseConnector {
 			e.printStackTrace();
 		}
 		if (eventList == null){ System.out.println("You have fucked up now."); return;}
-		for (int i=0; i < eventList.length; i++){
-			System.out.println(eventList[i].getEventName() );
-			System.out.println(eventList[i].getLocation() );
-			System.out.println(eventList[i].getTime().toString() );
-			System.out.println(eventList[i].getDescription() );
+		for (int i=0; i < eventList.size(); i++){
+			System.out.println(eventList.get(i).getEventName() );
+			System.out.println(eventList.get(i).getLocation() );
+			System.out.println(eventList.get(i).getTime().toString() );
+			System.out.println(eventList.get(i).getDescription() );
 			
 		}
 	}
