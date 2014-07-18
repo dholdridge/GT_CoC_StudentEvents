@@ -98,7 +98,7 @@ public class EventListActivity extends ListActivity {
 	 */
 	private void getEvents(){
 		try {
-			events = JsonParser.getList();
+			events = XmlReader.buildList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

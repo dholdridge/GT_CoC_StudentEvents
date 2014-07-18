@@ -61,6 +61,10 @@ public class EventListing {
 		this.description = description;
 	}
 	
+	public String toString() {
+		return eventName + '\n' + location + '\n' + time + '\n' + description + '\n';
+	}
+	
 	
 
 }
