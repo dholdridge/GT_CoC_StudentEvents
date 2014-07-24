@@ -71,6 +71,7 @@ public class EventListActivity extends ListActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+            startActivity(new Intent(EventListActivity.this, PreferenceWithHeaders.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
