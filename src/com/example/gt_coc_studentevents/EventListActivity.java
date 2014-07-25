@@ -4,10 +4,15 @@
  */
 package com.example.gt_coc_studentevents;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import android.support.v4.app.Fragment;
+import android.app.AlarmManager;
 import android.app.ListActivity;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -53,8 +58,23 @@ public class EventListActivity extends ListActivity {
 		Thread thread = new Thread(null, viewEvents, "MagnetoBackground");
 		thread.start();
 		pg = ProgressDialog.show(this, "Please wait...", "Retrieving data...", true);
+		setUpdateAlarm(this);
 				
 	}
+	
+		
+	private void setUpdateAlarm(Context context) {
+		
+		Intent updater = new Intent(context, UpdateReceiver.class);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, 
+				updater, PendingIntent.FLAG_CANCEL_CURRENT);
+		AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 30000, 30000, pendingIntent);
+		Log.d("EventListActivity", "Repeating alarm has been set");
+		
+	}
+		
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,11 +120,26 @@ public class EventListActivity extends ListActivity {
 	private void getEvents(){
 		try {
 			events = XmlReader.buildList();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.e("BACKGROUND_PROC", e.getMessage());
 		}
+		
+		
+		try {
+			FileOutputStream fOut = openFileOutput("eventlist.ser", Context.MODE_PRIVATE);
+			ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+			objOut.writeObject(events);
+			objOut.close();
+			fOut.close();
+			Log.i("EventListActivity", "Serializable list saved");
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.e("EventListActivity", e.getMessage() );
+		}
+		
 		runOnUiThread(returnRes);
 		
 	}

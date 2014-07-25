@@ -5,10 +5,14 @@
 
 package com.example.gt_coc_studentevents;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class EventListing {
+public class EventListing implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8533577364611689860L;
 	private String eventName;
 	private String location;
 	private String time;
@@ -65,6 +69,19 @@ public class EventListing {
 		return eventName + '\n' + location + '\n' + time + '\n' + description + '\n';
 	}
 	
+	public boolean isEqual(EventListing e){
+		if (! (this.getDescription().equals(e.getDescription() ))) {
+			return false;
+		} else if (! (this.getEventName().equals(e.getEventName() ))) {
+			return false;
+		} else if (! (this.getLocation().equals(e.getLocation() ))){
+			return false;
+		} else if (! (this.getTime().equals(e.getTime() ))){
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 
 }
