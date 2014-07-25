@@ -3,6 +3,7 @@ package com.example.gt_coc_studentevents;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class ListDetailsActivity extends ActionBarActivity {
 	 		nameText.setText(event.getEventName());
 	 		timeText.setText(event.getTime());
 	 		locationText.setText(event.getLocation());
-	 		detailsText.setText(event.getDescription());
+	 		detailsText.setText( Html.fromHtml( event.getDescription() ) );
 	 	}
 
 	@Override
