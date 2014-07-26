@@ -49,7 +49,7 @@ public class UpdaterService extends Service {
 		
 		Log.i("UpdateService", "Service is being started");
 		new UpdateTask().execute();
-		if (shouldNotify) {
+		if ((shouldNotify)) {
 				Log.d("UpdateService", "Trying to send notification");
 				this.sendNotification(this);
 		}
@@ -81,7 +81,7 @@ public class UpdaterService extends Service {
 				e.printStackTrace();
 			}
 			if ( oldList.get(0).equals(newList.get(0) ) ){
-				//List the same; dont' send notification
+				//List the same; don't send notification
 				shouldNotify = false;
 			}else {
 				shouldNotify=true;
@@ -101,7 +101,7 @@ public class UpdaterService extends Service {
 		NotificationManager notifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		NotificationCompat.Builder mBuilder = 
 				new NotificationCompat.Builder(context)
-				.setSmallIcon(R.drawable.ic_launcher)
+				.setSmallIcon(R.drawable.icon_buzz)
 				.setContentTitle("Event Added")
 				.setContentText("A new event has been added")
 				.setContentIntent(contentIntent);

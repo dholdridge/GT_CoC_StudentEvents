@@ -3,7 +3,7 @@
 
     <string name="app_name">GT_CoC_StudentEvents</string>
     <string name="action_settings">Settings</string>
-    <string name="placeholder_splashscreen">Placeholder SplashScreen</string>
+    <string name="splashscreen">College of Computing Events</string>
     <string name="event_listing">Event Listing</string>
     <string name="database_connector">Database Connector</string>
     <string name="title_activity_event_list">EventListActivity</string>

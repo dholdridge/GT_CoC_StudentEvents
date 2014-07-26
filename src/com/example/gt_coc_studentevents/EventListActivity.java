@@ -17,6 +17,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,12 +66,14 @@ public class EventListActivity extends ListActivity {
 		
 	private void setUpdateAlarm(Context context) {
 		
-		Intent updater = new Intent(context, UpdateReceiver.class);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, 
-				updater, PendingIntent.FLAG_CANCEL_CURRENT);
-		AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 30000, 30000, pendingIntent);
-		Log.d("EventListActivity", "Repeating alarm has been set");
+		if (true) {
+			Intent updater = new Intent(context, UpdateReceiver.class);
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, 
+					updater, PendingIntent.FLAG_UPDATE_CURRENT);
+			AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+			alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 30000, 30000, pendingIntent);
+			Log.d("EventListActivity", "Repeating alarm has been set");
+		}
 		
 	}
 		

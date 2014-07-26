@@ -65,11 +65,17 @@ public class EventListing implements Serializable{
 		this.description = description;
 	}
 	
+	@ Override
 	public String toString() {
 		return eventName + '\n' + location + '\n' + time + '\n' + description + '\n';
 	}
 	
-	public boolean isEqual(EventListing e){
+	@ Override
+	public boolean equals(Object obj){
+		if (!(obj instanceof EventListing)) {
+			return false;
+		}
+		EventListing e = (EventListing) obj;
 		if (! (this.getDescription().equals(e.getDescription() ))) {
 			return false;
 		} else if (! (this.getEventName().equals(e.getEventName() ))) {
