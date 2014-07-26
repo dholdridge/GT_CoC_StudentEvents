@@ -15,14 +15,24 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+/**Service that retrieves remote information, compares it to the stored information, and creates a notification if they don't match
+ * @author Dan Holdridge
+ *
+ */
 public class UpdaterService extends Service {
 	
 	private boolean shouldNotify;
 	
+	/**
+	 * 
+	 */
 	public UpdaterService() {
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Service#onBind(android.content.Intent)
+	 */
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO: Return the communication channel to the service.
@@ -32,6 +42,8 @@ public class UpdaterService extends Service {
 		
 	}
 	
+	
+	/*
 	protected void onHandleIntent(Intent intent){
 		
 		Log.d("UpdateService", "Intent is being handled, starting task");
@@ -39,12 +51,21 @@ public class UpdaterService extends Service {
 		Log.d("UpdateService", "Trying to send notification");
 		this.sendNotification(this);
 	}
+	*/
 	
+	/* (non-Javadoc)
+	 * @see android.app.Service#onCreate()
+	 */
+	@Override
 	public void onCreate(){
 		
 		Log.d("UpdateService", "calling onCreate");
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Service#onStartCommand(android.content.Intent, int, int)
+	 */
+	@Override
 	public int onStartCommand(Intent intent, int flags, int startId){
 		
 		Log.i("UpdateService", "Service is being started");
@@ -58,8 +79,16 @@ public class UpdaterService extends Service {
 	
 	
 	
+	/** Asynchronous task that retrieves the remote information, and compares it to a stored local copy.
+	 * If the copies don't match, display a notification.
+	 * @author Dan Holdridge
+	 *
+	 */
 	private class UpdateTask extends AsyncTask<String, Void, Boolean> {
 		
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#doInBackground(java.lang.Object[])
+		 */
 		protected Boolean doInBackground(String... strings){
 			Log.d("UpdaterService", "Calling doInBackground within UpdaterTask");
 			ArrayList<EventListing> newList, oldList;
@@ -92,6 +121,9 @@ public class UpdaterService extends Service {
 		
 	}//end private class
 	
+	/** Creates and displays an Android notification that tells the user an new event has been detected
+	 * @param context
+	 */
 	private void sendNotification(Context context){
 		
 		Log.d("UpdateService", "Creating notification");

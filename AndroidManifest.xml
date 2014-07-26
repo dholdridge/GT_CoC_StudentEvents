@@ -9,6 +9,7 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,14 +28,6 @@
             android:name="com.example.gt_coc_studentevents.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-        </activity>
-        <activity
-            android:name="com.example.gt_coc_studentevents.EventListing"
-            android:label="@string/event_listing" >
-        </activity>
-        <activity
-            android:name="com.example.gt_coc_studentevents.DatabaseConnector"
-            android:label="@string/database_connector" >
         </activity>
         <activity
             android:name="com.example.gt_coc_studentevents.EventListActivity"
@@ -51,15 +43,14 @@
         </activity>
 
         <receiver
-            android:name="com.example.gt_coc_studentevents.UpdateReceiver"
-            android:enabled="true"
-            android:exported="true" >
+            android:name="com.example.gt_coc_studentevents.UpdateReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.acton.BOOT_COMPLETED" />
+            </intent-filter>
         </receiver>
 
         <service
-            android:name="com.example.gt_coc_studentevents.UpdaterService"
-            android:enabled="true"
-            android:exported="true" >
+            android:name="com.example.gt_coc_studentevents.UpdaterService" >
         </service>
     </application>
 

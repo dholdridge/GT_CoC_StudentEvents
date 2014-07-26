@@ -30,8 +30,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/** Downloads an XML feed from Mercury (http://hg.gatech.edu), and converts it into an ArrayList
+ * @author Dan Holdridge
+ *
+ */
 public class XmlReader {
 	
+	/** Connects to the Mercury webserver and downloads the XML feed
+	 * @return The XML file as an InputStream
+	 */
 	private static InputStream getXml() {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost("http://hg.gatech.edu/feed/309051/xml/automatic");
@@ -61,6 +68,9 @@ public class XmlReader {
 	
 	}
 	
+	/** Convers the XML InputStream into a DOM document
+	 * @return The converted DOM document as a org.w3c.dom.document type
+	 */
 	private static Document buildXmlTree() {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		
@@ -91,6 +101,9 @@ public class XmlReader {
 		
 	}
 	
+	/** Iterates though the Document, pulling only the information we want and creating an ArrayList with it
+	 * @return A list of events as an ArrayList<EventListing>
+	 */
 	public static ArrayList<EventListing> buildList() {
 		ArrayList<EventListing> eventList = new ArrayList<EventListing>();
 		Document document = buildXmlTree();
@@ -123,6 +136,9 @@ public class XmlReader {
 		
 	}
 	
+	/** Downloads the info as an ArrayList and prints it out for testing purposes.
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 		ArrayList<EventListing> eventList = buildList();

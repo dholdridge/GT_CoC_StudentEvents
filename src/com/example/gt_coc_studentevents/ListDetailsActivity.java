@@ -13,11 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/** ListDetailsActivity
+ * Displays a more detailed description of a single event
+ * @author Dan Holdridge
+ * @version 1.0
+ */
 public class ListDetailsActivity extends ActionBarActivity {
 	
 	private TextView nameText, timeText, locationText, detailsText;
 	private EventListing event;
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +37,9 @@ public class ListDetailsActivity extends ActionBarActivity {
 		}*/
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onStart()
+	 */
 	@Override
 	 	public void onStart() {
 	 		super.onStart();
@@ -61,6 +72,9 @@ public class ListDetailsActivity extends ActionBarActivity {
 	 		detailsText.setText( Html.fromHtml( event.getDescription() ) );
 	 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -69,6 +83,9 @@ public class ListDetailsActivity extends ActionBarActivity {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

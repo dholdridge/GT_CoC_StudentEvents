@@ -1,3 +1,12 @@
+/**
+ * Reads the JSON from a remove webserver and returns an ArrayList
+ * 
+ * @author Dan Holdridge
+ * @version 1.0
+ * 
+ * 
+ */
+
 package com.example.gt_coc_studentevents;
 
 import java.io.BufferedReader;
@@ -28,6 +37,10 @@ public class JsonParser {
 	//private static List nameValuePairs;
 	static public ArrayList<EventListing> eventList = new ArrayList<EventListing>();
 	
+	/**
+	 * Connects to a remote webserver and creates an InputStream with the contents of the webpage
+	 * @throws IOException
+	 */
 	private static void httpPost() throws IOException {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost("http://gruesomevisage.net/query.php");
@@ -37,6 +50,9 @@ public class JsonParser {
 		is = entity.getContent();
 	}
 	
+	/** Converts the InputStream to a String
+	 * @throws IOException
+	 */
 	private static void responseToString() throws IOException  {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 		sb = new StringBuilder();
@@ -52,6 +68,10 @@ public class JsonParser {
 		
 	}
 	
+	/** Creates a jArray using the string contained the retrieved data,
+	 * then copies the info in the jArray to an ArrayList<EventListing>
+	 * @throws JSONException
+	 */
 	private static void pairData() throws JSONException {
 		
 		
@@ -73,6 +93,10 @@ public class JsonParser {
 		
 	}
 	
+	/** Retrieves the remote data, does the necessary data conversions, and returns an Arraylist
+	 * @return An ArrayList<EventListing> object containing all of the retrived information
+	 * @throws Exception
+	 */
 	public static ArrayList<EventListing> getList() throws Exception {
 		httpPost();
 		responseToString();
@@ -80,6 +104,9 @@ public class JsonParser {
 		return eventList;
 	}
 	
+	/** Creates the Arraylist, and prints out each event in it for testing purposes
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 		try {
@@ -95,7 +122,7 @@ public class JsonParser {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("You have died from being hammered in the ass.");
+			System.out.println("Something went wrong.");
 		}
 	}
 }

@@ -1,4 +1,9 @@
-/*
+/**
+ * EventListActivity
+ * Retrieves information remotely and displays the information in a ListView
+ * @author Dan Holdridge
+ * @version 1.0
+ * 
  * I'm following an example from here:
  * http://www.softwarepassion.com/android-series-custom-listview-items-and-adapters/
  */
@@ -34,6 +39,9 @@ public class EventListActivity extends ListActivity {
 	private EventAdapter adapter;
 	private Runnable viewEvents;
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,6 +72,9 @@ public class EventListActivity extends ListActivity {
 	}
 	
 		
+	/** Creates a repeating alarm
+	 * @param context
+	 */
 	private void setUpdateAlarm(Context context) {
 		
 		if (true) {
@@ -79,6 +90,9 @@ public class EventListActivity extends ListActivity {
 		
 
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -87,6 +101,9 @@ public class EventListActivity extends ListActivity {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -117,15 +134,15 @@ public class EventListActivity extends ListActivity {
 		}
 	}
 	
-	/*
-	 * 
+	/**
+	 * Retrieves remote information and saves it locally
 	 */
 	private void getEvents(){
 		try {
 			events = XmlReader.buildList();
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			//Couldn't retrieve information
 			e.printStackTrace();
 			Log.e("BACKGROUND_PROC", e.getMessage());
 		}
@@ -147,8 +164,10 @@ public class EventListActivity extends ListActivity {
 		
 	}
 	
-	/*
-	 * 
+	
+	/**
+	 * Adds everything in the arraylist events to the ArraylistAdapter, then
+	 * dismisses the progress dialog
 	 */
 	private Runnable returnRes = new Runnable() {
 		@Override
@@ -156,6 +175,7 @@ public class EventListActivity extends ListActivity {
 			if (events != null && events.size() > 0){
 				adapter.notifyDataSetChanged();
 				for (int i=0;i<events.size();i++){
+					
 					adapter.add(events.get(i));
 				}
 				
@@ -165,14 +185,15 @@ public class EventListActivity extends ListActivity {
 		}
 	};
 	
-	/*
-	 * Method run when a row view is clicked
+	/**
+	 * Starts a new ListDetailsActivity with the information from the selected event
+	 * @param view The ListView corresponding to the selected event
 	 */
 	public void showDetails (View view) {
 		
 		Intent intent = new Intent(this, ListDetailsActivity.class);
 		
-		Log.e("GET_ROW_ID", Integer.toString(view.getId()));
+		//Log.d("GET_ROW_ID", Integer.toString(view.getId()));
 		
 		EventListing e = events.get( view.getId() );
 		
@@ -184,8 +205,10 @@ public class EventListActivity extends ListActivity {
 		startActivity(intent);
 	}
 	
-	/*
-	 * Generates a view for a single event
+	
+	/** Adapter that can create a ListView for an EventListing object
+	 * @author Dan Holdridge
+	 *
 	 */
 	private class EventAdapter extends ArrayAdapter<EventListing> {
 		
@@ -197,6 +220,9 @@ public class EventListActivity extends ListActivity {
 			this.eventList = eventList;
 		}
 		
+		/* (non-Javadoc)
+		 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
+		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v = convertView;
@@ -206,7 +232,7 @@ public class EventListActivity extends ListActivity {
 			}
 			EventListing evt = eventList.get(position);
 			v.setId(position);
-			Log.e("SET_ROW_ID", Integer.toString(v.getId()));
+			//Log.d("SET_ROW_ID", Integer.toString(v.getId()));
 			if (evt != null){
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);

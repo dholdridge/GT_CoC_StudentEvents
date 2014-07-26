@@ -1,5 +1,10 @@
-/** A data structure to contain information about a single event.
+/** 
+ * EventListing
  * 
+ * A data structure to contain information about a single event.
+ * 
+ * @author Dan Holdridge
+ * @version 1.0
  * 
  */
 
@@ -7,6 +12,10 @@ package com.example.gt_coc_studentevents;
 
 import java.io.Serializable;
 
+/**
+ * @author dan
+ *
+ */
 public class EventListing implements Serializable{
 	
 	/**
@@ -18,10 +27,13 @@ public class EventListing implements Serializable{
 	private String time;
 	private String description;
 	
-	public EventListing(){
-		super();
-	}
-	
+	/**
+	 * Creates a new event
+	 * @param eventName Title of event
+	 * @param location Locaiton of event
+	 * @param time Start time of event
+	 * @param description A description of the event
+	 */
 	public EventListing(String eventName, String location, String time,
 			String description) {
 		super();
@@ -30,46 +42,82 @@ public class EventListing implements Serializable{
 		this.time = time;
 		this.description = description;
 	}
+	
+	public EventListing() {
+		super();
+		this.eventName = "";
+		this.location = "";
+		this.time = "";
+		this.description = "";
+	}
 
+	/** Gets the eventName
+	 * @return Title of the event
+	 */
 	public String getEventName() {
 		return eventName;
 	}
 
+	/** Sets the eventName
+	 * @param eventName The new event title
+	 */
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
 
+	/** Gets the location
+	 * @return The event location
+	 */
 	public String getLocation() {
 		return location;
 	}
 
+	/** Sets the location
+	 * @param location The new event location
+	 */
 	public void setLocation(String location) {
 		this.location = location;
 	}
 
+	/** Gets the starting time
+	 * @return The starting time of the event
+	 */
 	public String getTime() {
 		return time;
 	}
-
 	
-	
+	/** Sets the starting time
+	 * @param time The new starting time
+	 */
 	public void setTime(String time) {
 		this.time = time;
 	}
 
+	/** Gets the description
+	 * @return A description of the event
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/** Sets the description
+	 * @param description A new description for the event
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@ Override
 	public String toString() {
 		return eventName + '\n' + location + '\n' + time + '\n' + description + '\n';
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@ Override
 	public boolean equals(Object obj){
 		if (!(obj instanceof EventListing)) {
