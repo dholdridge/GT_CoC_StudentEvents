@@ -6,6 +6,13 @@
                 android:key="notifications_preference"
                 android:title="@string/notifications"
                 android:summary="@string/notifications_preference_summary" />
-
+        <ListPreference
+                android:key="event_sync_interval"
+                android:entries="@array/update_interval_entries"
+                android:entryValues="@array/update_interval_values"
+                android:title="Update interval"
+                android:persistent="true"
+                android:defaultValue="60"
+        />
     </PreferenceCategory>
 </PreferenceScreen>
