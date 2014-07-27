@@ -67,26 +67,12 @@ public class EventListActivity extends ListActivity {
 		Thread thread = new Thread(null, viewEvents, "MagnetoBackground");
 		thread.start();
 		pg = ProgressDialog.show(this, "Please wait...", "Retrieving data...", true);
-		setUpdateAlarm(this);
+		
 				
 	}
 	
 		
-	/** Creates a repeating alarm
-	 * @param context
-	 */
-	private void setUpdateAlarm(Context context) {
-		
-		if (true) {
-			Intent updater = new Intent(context, UpdateReceiver.class);
-			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, 
-					updater, PendingIntent.FLAG_UPDATE_CURRENT);
-			AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-			alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 30000, 30000, pendingIntent);
-			Log.d("EventListActivity", "Repeating alarm has been set");
-		}
-		
-	}
+	
 		
 
 

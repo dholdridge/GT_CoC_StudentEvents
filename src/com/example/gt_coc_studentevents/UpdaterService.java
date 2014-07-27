@@ -1,8 +1,10 @@
 package com.example.gt_coc_studentevents;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import android.app.NotificationManager;
@@ -114,6 +116,18 @@ public class UpdaterService extends Service {
 				shouldNotify = false;
 			}else {
 				shouldNotify=true;
+				//sendNotification(getBaseContext());
+				try {
+					FileOutputStream fOut = openFileOutput("eventlist.ser", Context.MODE_PRIVATE);
+					ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+					objOut.writeObject(newList);
+					objOut.close();
+					fOut.close();
+					Log.i("UpdaterService", "Serializable list saved");
+				} catch (IOException e) {
+					e.printStackTrace();
+					Log.e("UpdaterService", e.getMessage() );
+				}
 			}
 			return true;
 		}

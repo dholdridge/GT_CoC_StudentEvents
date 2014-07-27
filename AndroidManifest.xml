@@ -45,7 +45,7 @@
         <receiver
             android:name="com.example.gt_coc_studentevents.UpdateReceiver" >
             <intent-filter>
-                <action android:name="android.intent.acton.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

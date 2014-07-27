@@ -21,6 +21,6 @@ public class UpdateReceiver extends BroadcastReceiver {
 		
 		Intent updater = new Intent(context, UpdaterService.class);
 		context.startService(updater);
-		Log.d("UpdateReceiver", "Receiver is starting the update service");
+		Log.e("UpdateReceiver", "Receiver is starting the update service");
 	}
 }

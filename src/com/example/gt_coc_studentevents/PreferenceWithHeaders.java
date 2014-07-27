@@ -1,21 +1,41 @@
 package com.example.gt_coc_studentevents;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.util.List;
 
 public class PreferenceWithHeaders extends PreferenceActivity {
-    @Override
+	
+	
+     
+    
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Display the fragment as the main content.
+        Prefs1Fragment prefs1 = new Prefs1Fragment();
+        
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new Prefs1Fragment())
+                .replace(android.R.id.content, prefs1)
                 .commit();
+        
+      
+		
     }
 
     /**
@@ -25,6 +45,11 @@ public class PreferenceWithHeaders extends PreferenceActivity {
     @Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);
+    }
+    
+    @Override
+    public void onHeaderClick(Header header, int position){
+    	
     }
 
     /**
@@ -43,6 +68,42 @@ public class PreferenceWithHeaders extends PreferenceActivity {
 
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.fragmented_preferences);
+            
+            final CheckBoxPreference notificationPreference = (CheckBoxPreference) this.findPreference("notifications_preference");
+    		if (notificationPreference != null) {
+    			Log.d("Preferences", "Creating listener");
+    	        notificationPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+    	        	public boolean onPreferenceClick(Preference pref){
+    	        		//Create alarm
+    	        		setUpdateAlarm(getActivity().getBaseContext(), notificationPreference.isChecked() );
+    	        		
+    	        		return true;
+    	        	}
+    	        });
+    		} else { Log.d("Preferences", "Can't find preference"); }
+            
+            
         }
+        /** Creates a repeating alarm
+    	 * @param context
+    	 * @param start Creates an alarm if true; else cancels the alarm
+    	 */
+    	private void setUpdateAlarm(Context context, boolean start) {
+    		AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+    		Intent updater = new Intent(context, UpdateReceiver.class);
+    		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, 
+    				updater, PendingIntent.FLAG_UPDATE_CURRENT);
+    		if (start) {	
+    			alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 30000, 30000, pendingIntent);
+    			Log.d("Alarm", "Repeating alarm has been set");
+    		} else {
+    			alarmMgr.cancel(pendingIntent);
+    			Log.d("Alarm", "Alarm is cancelled");
+    		}
     }
+    
+    
+		
+	}
+	
 }
