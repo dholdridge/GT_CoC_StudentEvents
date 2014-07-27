@@ -1,10 +1,14 @@
 package com.example.gt_coc_studentevents;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,11 +34,6 @@ public class LoginActivity extends Activity {
 			"foo@example.com:hello", "bar@example.com:world" };
 
 	/**
-	 * The default email to populate the email field with.
-	 */
-	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
-
-	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
@@ -42,6 +41,7 @@ public class LoginActivity extends Activity {
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
+    private EventApp app;
 
 	// UI references.
 	private EditText mEmailView;
@@ -50,43 +50,67 @@ public class LoginActivity extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login);
 
-		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+        app = (EventApp) getApplication();
 
-		mPasswordView = (EditText) findViewById(R.id.password);
-		mPasswordView
-				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id,
-							KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
-							return true;
-						}
-						return false;
-					}
-				});
+        mEmailView = (EditText) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mLoginFormView = findViewById(R.id.login_form);
+        mLoginStatusView = findViewById(R.id.login_status);
+        mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-		mLoginFormView = findViewById(R.id.login_form);
-		mLoginStatusView = findViewById(R.id.login_status);
-		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+        SharedPreferences sp = getSharedPreferences(EventApp.PACKAGE_BASE, Context.MODE_PRIVATE);
+        String email = sp.getString(EventApp.ACCOUNT_EMAIL_KEY, "");
 
-		findViewById(R.id.sign_in_button).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						attemptLogin();
-					}
-				});
-	}
+        long authdate = sp.getLong(EventApp.ACCOUNT_AUTH_DATE, 0);
+        if (authdate != 0) {
+            String token = sp.getString(EventApp.ACCOUNT_TOKEN, "");
+            boolean isAuthenticated = !(email.equals("") || token.equals(""));
+            if (isAuthenticated) {
+                Intent intent = new Intent(this, EventListActivity.class);
+                startActivity(intent);
+            }
+        }
+
+        // Set up the login form.
+        if (!email.equals("")) {
+            mEmailView.setText(email);
+        } else {
+            AccountManager am = AccountManager.get(this);
+            if (am != null) {
+                Account[] accounts = am.getAccountsByType("com.google");
+                if(accounts.length == 1) {
+                    mEmailView.setText(accounts[0].name);
+                }
+            }
+        }
+
+        mPasswordView
+                .setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int id,
+                                                  KeyEvent keyEvent) {
+                        if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                            attemptLogin();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+
+        findViewById(R.id.sign_in_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        attemptLogin();
+                    }
+                });
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -149,6 +173,9 @@ public class LoginActivity extends Activity {
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
+
+            String token = "tempLoginToken";
+            app.setAccount(mEmail, mPassword, token);
 			
 			Intent intent = new Intent(this, EventListActivity.class);
 			startActivity(intent);
