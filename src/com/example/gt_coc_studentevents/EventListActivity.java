@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.app.AlarmManager;
 import android.app.ListActivity;
@@ -65,7 +68,6 @@ public class EventListActivity extends ListActivity {
 	
 		
 	private void setUpdateAlarm(Context context) {
-		
 		if (true) {
 			Intent updater = new Intent(context, UpdateReceiver.class);
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, 
@@ -81,7 +83,6 @@ public class EventListActivity extends ListActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.event_list, menu);
 		return true;
@@ -121,13 +122,12 @@ public class EventListActivity extends ListActivity {
 	 * 
 	 */
 	private void getEvents(){
-		try {
-			events = XmlReader.buildList();
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            events = XmlReader.buildList();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		
 		
 		try {
@@ -145,6 +145,20 @@ public class EventListActivity extends ListActivity {
 		runOnUiThread(returnRes);
 		
 	}
+
+    public void logoutUser(View view) {
+        SharedPreferences sp = getSharedPreferences(EventApp.PACKAGE_BASE, Context.MODE_PRIVATE);
+        sp.edit().clear().apply();
+        AccountManager am = AccountManager.get(this);
+        if (am != null) {
+            Account[] accounts = am.getAccountsByType(EventApp.PACKAGE_BASE);
+            for (Account account:accounts) {
+                am.removeAccount(account, null, null);
+            }
+        }
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 	
 	/*
 	 * 
@@ -157,7 +171,7 @@ public class EventListActivity extends ListActivity {
 				for (int i=0;i<events.size();i++){
 					adapter.add(events.get(i));
 				}
-				
+
 			}
 			pg.dismiss();
 			adapter.notifyDataSetChanged();
@@ -168,7 +182,6 @@ public class EventListActivity extends ListActivity {
 	 * Method run when a row view is clicked
 	 */
 	public void showDetails (View view) {
-		
 		Intent intent = new Intent(this, ListDetailsActivity.class);
 		
 		Log.e("GET_ROW_ID", Integer.toString(view.getId()));
