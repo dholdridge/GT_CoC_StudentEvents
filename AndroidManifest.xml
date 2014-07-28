@@ -56,7 +56,7 @@
         </activity>
         <activity
             android:name="com.example.gt_coc_studentevents.PreferenceWithHeaders"
-            android:label="PreferenceWithHeaders" >
+            android:label="Settings" >
         </activity>
 
         <receiver

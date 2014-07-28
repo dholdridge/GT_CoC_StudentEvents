@@ -6,10 +6,10 @@
     <string name="splashscreen">College of Computing Events</string>
     <string name="event_listing">Event Listing</string>
     <string name="database_connector">Database Connector</string>
-    <string name="title_activity_event_list">EventListActivity</string>
+    <string name="title_activity_event_list">Event List</string>
     <string name="hello_world">Hello world!</string>
     <string name="main_no_items">No events to display</string>
-    <string name="title_activity_list_details">ListDetailsActivity</string>
+    <string name="title_activity_list_details">Event Details</string>
     <string name="event_name_colon_underline"><u>Event Name:</u></string>
     <string name="event_time_colon_underline"><u>Time:</u></string>
     <string name="event_location_colon_underline"><u>Location:</u></string>
