@@ -1,11 +1,21 @@
+/**
+ * PreferenceWithHeaders
+ *
+ * The settings menu screen that lets the user toggle notifications
+ *
+ * @author Inder Dhir
+ * @author Dan Holdridge
+ * @version 1.0
+ *
+ */
+
+
 package com.example.gt_coc_studentevents;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.CheckBoxPreference;
@@ -13,16 +23,15 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.List;
 
 public class PreferenceWithHeaders extends PreferenceActivity {
-	
-	
-     
-    
+
+    /* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +42,6 @@ public class PreferenceWithHeaders extends PreferenceActivity {
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, prefs1)
                 .commit();
-        
-      
-		
     }
 
     /**
@@ -101,9 +107,5 @@ public class PreferenceWithHeaders extends PreferenceActivity {
     			Log.d("Alarm", "Alarm is cancelled");
     		}
     }
-    
-    
-		
 	}
-	
 }
