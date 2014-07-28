@@ -1,22 +1,30 @@
-package com.example.gt_coc_studentevents;
+/**
+ * Splash Screen
+ *
+ * Splash screen before the user is shown the login screen
+ *
+ * @author Inder Dhir
+ * @version 1.0
+ *
+ */
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+package cc.gatech.edu.coc_events;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.view.*;
+import edu.gatech.cc.coc_events.R;
 
 public class SplashScreen extends ActionBarActivity {
 	
 	private static int SPLASH_TIME_OUT = 2000;
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +56,9 @@ public class SplashScreen extends ActionBarActivity {
         }, SPLASH_TIME_OUT);        
     }
 
-
+    /* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
@@ -57,6 +67,9 @@ public class SplashScreen extends ActionBarActivity {
         return true;
     }
 
+    /* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -77,6 +90,9 @@ public class SplashScreen extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+        /* (non-Javadoc)
+         * @see android.app.Fragment#onCreateView(android.os.Bundle)
+        */
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {

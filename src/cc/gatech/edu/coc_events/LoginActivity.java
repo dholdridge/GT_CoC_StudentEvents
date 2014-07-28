@@ -1,4 +1,15 @@
-package com.example.gt_coc_studentevents;
+/**
+ * Login Activity
+ *
+ * The user is required to login to access the rest of the app
+ *
+ * @author Inder Dhir
+ * @version 1.0
+ *
+ */
+
+
+package cc.gatech.edu.coc_events;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,13 +20,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import edu.gatech.cc.coc_events.R;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -50,6 +61,9 @@ public class LoginActivity extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 
+    /* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +102,9 @@ public class LoginActivity extends Activity {
 				});
 	}
 
+    /* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.os.Bundle)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);

@@ -1,21 +1,28 @@
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
+import edu.gatech.cc.coc_events.R;
 
+/** ListDetailsActivity
+ * Displays a more detailed description of a single event
+ * @author Dan Holdridge
+ * @version 1.0
+ */
 public class ListDetailsActivity extends ActionBarActivity {
 	
 	private TextView nameText, timeText, locationText, detailsText;
 	private EventListing event;
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +34,9 @@ public class ListDetailsActivity extends ActionBarActivity {
 		}*/
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onStart()
+	 */
 	@Override
 	 	public void onStart() {
 	 		super.onStart();
@@ -56,9 +66,12 @@ public class ListDetailsActivity extends ActionBarActivity {
 	 		nameText.setText(event.getEventName());
 	 		timeText.setText(event.getTime());
 	 		locationText.setText(event.getLocation());
-	 		detailsText.setText(event.getDescription());
+	 		detailsText.setText( Html.fromHtml( event.getDescription() ) );
 	 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -67,6 +80,9 @@ public class ListDetailsActivity extends ActionBarActivity {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -74,7 +90,8 @@ public class ListDetailsActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			return true;
+            startActivity(new Intent(ListDetailsActivity.this, PreferenceWithHeaders.class));
+            return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
