@@ -7,7 +7,7 @@
  * 
  */
 
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

@@ -10,7 +10,7 @@
  */
 
 
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -24,7 +24,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.util.Log;
-
+import edu.gatech.cc.coc_events.R;
 import java.util.List;
 
 public class PreferenceWithHeaders extends PreferenceActivity {

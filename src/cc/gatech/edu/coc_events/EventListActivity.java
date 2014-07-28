@@ -7,7 +7,7 @@
  * I'm following an example from here:
  * http://www.softwarepassion.com/android-series-custom-listview-items-and-adapters/
  */
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -19,7 +19,7 @@ import android.util.Log;
 import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
+import edu.gatech.cc.coc_events.R;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;

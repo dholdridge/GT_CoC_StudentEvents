@@ -8,7 +8,7 @@
  *
  */
 
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
+import edu.gatech.cc.coc_events.R;
 
 public class SplashScreen extends ActionBarActivity {
 	

@@ -1,4 +1,4 @@
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.*;
 import android.widget.TextView;
+import edu.gatech.cc.coc_events.R;
 
 /** ListDetailsActivity
  * Displays a more detailed description of a single event

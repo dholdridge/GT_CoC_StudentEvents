@@ -1,6 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.gt_coc_studentevents.LoginActivity" >
+    tools:context="cc.gatech.edu.coc_events.LoginActivity" >
 
     <!-- Login progress -->
 

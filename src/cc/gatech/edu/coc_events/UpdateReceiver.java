@@ -1,4 +1,4 @@
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

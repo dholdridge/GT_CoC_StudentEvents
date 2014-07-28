@@ -1,4 +1,4 @@
-package com.example.gt_coc_studentevents;
+package cc.gatech.edu.coc_events;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
+import edu.gatech.cc.coc_events.R;
 import java.io.*;
 import java.util.ArrayList;
 
