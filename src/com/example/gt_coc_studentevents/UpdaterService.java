@@ -1,12 +1,5 @@
 package com.example.gt_coc_studentevents;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -16,6 +9,9 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import java.io.*;
+import java.util.ArrayList;
 
 /**Service that retrieves remote information, compares it to the stored information, and creates a notification if they don't match
  * @author Dan Holdridge
