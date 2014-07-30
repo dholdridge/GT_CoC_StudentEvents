@@ -123,7 +123,7 @@ public class EventListActivity extends ListActivity {
 		} catch (Exception e) {
 			//Couldn't retrieve information
 			e.printStackTrace();
-			Log.e("BACKGROUND_PROC", e.getMessage());
+			//Log.e("BACKGROUND_PROC", e.getMessage());
 		}
 		
 		

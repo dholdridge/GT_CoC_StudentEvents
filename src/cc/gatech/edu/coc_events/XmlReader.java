@@ -122,10 +122,34 @@ public class XmlReader {
 					//16 - Start
 					//17 - End
 					//31 - Location
-				evt.setEventName( childNodes.item(0).getLastChild().getTextContent().trim() );
-				evt.setDescription( childNodes.item(2).getLastChild().getTextContent().trim() );
-				evt.setTime( childNodes.item(16).getLastChild().getTextContent().trim() );
-				evt.setLocation( childNodes.item(31).getLastChild().getTextContent().trim() );
+				Node lastChild = childNodes.item(0).getLastChild();
+				if ( lastChild == null ) {
+					evt.setEventName("");
+				} else {
+					evt.setEventName(lastChild.getTextContent().trim());
+				}
+				lastChild = childNodes.item(2).getLastChild();
+				if ( lastChild == null ) {
+					evt.setDescription("");
+				} else {
+					evt.setDescription(lastChild.getTextContent().trim());
+				}
+				lastChild = childNodes.item(16).getLastChild();
+				if ( lastChild == null ) {
+					evt.setTime("");
+				} else {
+					evt.setTime(lastChild.getTextContent().trim());
+				}
+				lastChild = childNodes.item(31).getLastChild();
+				if ( lastChild == null ) {
+					evt.setLocation("");
+				} else {
+					evt.setLocation(lastChild.getTextContent().trim());
+				}
+//				evt.setEventName( childNodes.item(0).getLastChild().getTextContent().trim() );
+//				evt.setDescription( childNodes.item(2).getLastChild().getTextContent().trim() );
+//				evt.setTime( childNodes.item(16).getLastChild().getTextContent().trim() );
+//				evt.setLocation( childNodes.item(31).getLastChild().getTextContent().trim() );
 				eventList.add(evt);
 			}
 			
